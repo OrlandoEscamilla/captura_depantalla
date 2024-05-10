@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertir HTML a Imagen</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+</head>
+<body>
+}   <button onclick="takeScreenshot()">Take Screenshot</button>
+    <div id="contenedor">
+        <h1>Título Principal</h1>
+        <!--<img src="bosque.jpg" alt="Descripción de la imagen"> -->
+        <table>
+            <tr>
+              <th>Company</th>
+              <th>Contact</th>
+              <th>Country</th>
+            </tr>
+            <tr>
+              <td>Alfreds Futterkiste</td>
+              <td>Maria Anders</td>
+              <td>Germany</td>
+            </tr>
+            <tr>
+              <td>Centro comercial Moctezuma</td>
+              <td>Francisco Chang</td>
+              <td>Mexico</td>
+            </tr>
+          </table>
+    </div>
+
+    <script>
+        function takeScreenshot(){
+            html2canvas(document.querySelector("#contenedor")).then(canvas => {
+                document.body.appendChild(canvas)
+            });
+        }
+    </script>
+</body>
+</html>

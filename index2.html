@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaso de Agua en Canvas</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="400" height="600"></canvas>
+    <script>
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+
+        // Función para dibujar un degradado radial
+        function drawRadialGradient(x, y, innerRadius, outerRadius, colorStops) {
+            var gradient = ctx.createRadialGradient(x, y, innerRadius, x, y, outerRadius);
+            colorStops.forEach(function(colorStop) {
+                gradient.addColorStop(colorStop.position, colorStop.color);
+            });
+            return gradient;
+        }
+
+        // Dibujar el vaso
+        ctx.beginPath();
+        ctx.moveTo(100, 450);
+        ctx.lineTo(300, 450);
+        ctx.quadraticCurveTo(350, 450, 350, 350);
+        ctx.lineTo(350, 50);
+        ctx.quadraticCurveTo(350, 0, 300, 0);
+        ctx.lineTo(100, 0);
+        ctx.quadraticCurveTo(50, 0, 50, 50);
+        ctx.lineTo(50, 350);
+        ctx.quadraticCurveTo(50, 450, 100, 450);
+        ctx.closePath();
+
+        var vasoGradient = drawRadialGradient(200, 325, 50, 350, [
+            { position: 0, color: '#cccccc' },
+            { position: 1, color: '#ffffff' }
+        ]);
+        ctx.strokeStyle = '#000000'; // Color de borde
+        ctx.lineWidth = 2; // Ancho de línea
+        ctx.stroke(); // Dibujar el borde antes del relleno para que quede remarcado
+        ctx.fillStyle = vasoGradient;
+        ctx.fill();
+
+        // Dibujar el agua
+        var aguaHeight = 300 * 3 / 4; // 3/4 del vaso
+        ctx.beginPath();
+        ctx.moveTo(100, 450);
+        ctx.lineTo(300, 450);
+        ctx.quadraticCurveTo(350, 450, 350, 350);
+        ctx.lineTo(350, 450 - aguaHeight);
+        ctx.quadraticCurveTo(350, 350 - aguaHeight, 300, 350 - aguaHeight);
+        ctx.lineTo(100, 350 - aguaHeight);
+        ctx.quadraticCurveTo(50, 350 - aguaHeight, 50, 450 - aguaHeight);
+        ctx.lineTo(50, 350);
+        ctx.quadraticCurveTo(50, 450, 100, 450);
+        ctx.closePath();
+
+        var aguaGradient = drawRadialGradient(200, 375 - aguaHeight / 2, 50, 350, [
+            { position: 0, color: '#66ccff' },
+            { position: 1, color: '#0099ff' }
+        ]);
+        ctx.strokeStyle = '#000000'; // Color de borde
+        ctx.lineWidth = 2; // Ancho de línea
+        ctx.stroke(); // Dibujar el borde antes del relleno para que quede remarcado
+        ctx.fillStyle = aguaGradient;
+        ctx.fill();
+    </script>
+</body>
+</html>
+
